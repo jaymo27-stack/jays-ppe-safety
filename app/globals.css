@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F2F0E9;
+  color: #1A1A18;
+}
+
+/* Hazard stripe divider — echoes the brand's yellow/black diagonal tape motif */
+.hazard-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #F5B700,
+    #F5B700 14px,
+    #1A1A18 14px,
+    #1A1A18 28px
+  );
+}
+
+/* Cut-corner "safety tag" shape used on product cards & badges */
+.tag-corner {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+
+.tag-corner-sm {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+}
+
+.btn-primary {
+  @apply bg-safety text-charcoal font-bold uppercase tracking-wide px-6 py-3 tag-corner-sm transition-transform hover:-translate-y-0.5 hover:bg-safetyDark disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-secondary {
+  @apply bg-charcoal text-bone font-bold uppercase tracking-wide px-6 py-3 tag-corner-sm transition-transform hover:-translate-y-0.5 hover:bg-steel;
+}
+
+.btn-outline {
+  @apply border-2 border-charcoal text-charcoal font-bold uppercase tracking-wide px-6 py-3 transition-colors hover:bg-charcoal hover:text-bone;
+}
+
+.section-label {
+  @apply inline-block bg-charcoal text-safety font-display uppercase tracking-widest text-sm px-3 py-1 tag-corner-sm;
+}
+
+.input-field {
+  @apply w-full border-2 border-line bg-white px-4 py-2 text-charcoal focus:outline-none focus:border-safety;
+}
