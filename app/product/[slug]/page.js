@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getAllProducts, getProductBySlug } from '../../../lib/products';
 import { formatPrice } from '../../../lib/format';
-import CategoryIcon from '../../../components/CategoryIcon';
 import AddToCartButton from '../../../components/AddToCartButton';
+import ProductGallery from '../../../components/ProductGallery';
 import ProductCard from '../../../components/ProductCard';
 import categories from '../../../data/categories';
 
@@ -36,20 +35,7 @@ export default function ProductPage({ params }) {
       </nav>
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
-        <div className="relative flex h-80 items-center justify-center border-2 border-line bg-white md:h-[28rem]">
-          {product.image ? (
-            <Image src={product.image} alt={product.name} fill className="object-contain p-6" priority />
-          ) : (
-            <div className="flex h-40 w-40 items-center justify-center rounded-full bg-charcoal text-safety">
-              <CategoryIcon icon={product.icon} className="h-20 w-20" />
-            </div>
-          )}
-          {product.sabs_approved && (
-            <span className="absolute top-4 left-4 bg-hazard px-3 py-1 text-xs font-bold uppercase text-white tag-corner-sm">
-              SABS Approved
-            </span>
-          )}
-        </div>
+        <ProductGallery product={product} />
 
         <div>
           <span className="text-sm font-bold uppercase tracking-wide text-hazard">{product.brand}</span>
@@ -61,6 +47,28 @@ export default function ProductPage({ params }) {
           </p>
 
           <AddToCartButton product={product} />
+
+          {product.options?.length > 0 && (
+            <div className="mt-8 border-t-2 border-line pt-6">
+              <h2 className="font-display text-lg uppercase tracking-wide text-charcoal">
+                Available Options
+              </h2>
+              <dl className="mt-3 space-y-2 text-sm">
+                {product.options.map((opt) => (
+                  <div key={opt.name} className="flex flex-wrap gap-x-2">
+                    <dt className="font-bold uppercase tracking-wide text-charcoal">{opt.label}:</dt>
+                    <dd className="text-steel/90">{opt.values.join(' · ')}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Link
+                href="/size-guide"
+                className="mt-3 inline-block text-sm font-bold uppercase tracking-wide text-hazard hover:underline"
+              >
+                View SA Size Guide →
+              </Link>
+            </div>
+          )}
 
           {product.features?.length > 0 && (
             <div className="mt-8 border-t-2 border-line pt-6">

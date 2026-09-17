@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import categories from '../data/categories';
+import OptionsEditor from './OptionsEditor';
+import ImagesEditor from './ImagesEditor';
+import { defaultOptionsForCategory } from '../lib/sa-sizes';
 
 const ICONS = ['helmet', 'boot', 'gumboot', 'worksuit', 'jacket', 'glove', 'vest', 'goggles', 'earmuffs', 'respirator', 'firstaid'];
 
@@ -16,10 +19,17 @@ export default function ProductForm({ initialProduct }) {
     category: initialProduct?.category || categories[0].slug,
     price: initialProduct?.price ?? '',
     stock: initialProduct?.stock ?? 0,
-    image: initialProduct?.image || '',
+    images: initialProduct?.images?.length
+      ? initialProduct.images
+      : initialProduct?.image
+        ? [initialProduct.image]
+        : [],
     icon: initialProduct?.icon || ICONS[0],
     short_description: initialProduct?.short_description || '',
     features: (initialProduct?.features || []).join('\n'),
+    options: initialProduct
+      ? initialProduct.options || []
+      : defaultOptionsForCategory(categories[0].slug),
     sabs_approved: !!initialProduct?.sabs_approved,
     active: initialProduct ? !!initialProduct.active : true,
   }));
@@ -48,7 +58,16 @@ export default function ProductForm({ initialProduct }) {
       price: parseFloat(form.price),
       stock: parseInt(form.stock, 10) || 0,
       features: form.features.split('\n').map((s) => s.trim()).filter(Boolean),
-      image: form.image.trim() || null,
+      options: (form.options || [])
+        .map((o) => ({
+          name: String(o.name || '').trim().toLowerCase(),
+          label: String(o.label || '').trim() || String(o.name || '').trim(),
+          values: (o.values || []).map((v) => String(v).trim()).filter(Boolean),
+          guide: o.guide || null,
+        }))
+        .filter((o) => o.name && o.values.length > 0),
+      images: (form.images || []).map((i) => String(i).trim()).filter(Boolean),
+      image: (form.images || []).map((i) => String(i).trim()).filter(Boolean)[0] || null,
     };
 
     try {
@@ -103,7 +122,16 @@ export default function ProductForm({ initialProduct }) {
         </div>
         <div>
           <label className="text-sm font-bold uppercase tracking-wide text-charcoal">Category</label>
-          <select className="input-field mt-1" value={form.category} onChange={(e) => update('category', e.target.value)}>
+          <select
+            className="input-field mt-1"
+            value={form.category}
+            onChange={(e) => {
+              const next = e.target.value;
+              update('category', next);
+              // New products pick up the standard SA options for their category.
+              if (!isEdit) update('options', defaultOptionsForCategory(next));
+            }}
+          >
             {categories.map((c) => (
               <option key={c.slug} value={c.slug}>{c.name}</option>
             ))}
@@ -146,22 +174,9 @@ export default function ProductForm({ initialProduct }) {
         </div>
       </div>
 
-      <div>
-        <label className="text-sm font-bold uppercase tracking-wide text-charcoal">
-          Image Path <span className="font-normal normal-case text-steel/60">(optional — leave blank to use an icon)</span>
-        </label>
-        <input
-          className="input-field mt-1"
-          placeholder="/images/products/example.jpg"
-          value={form.image}
-          onChange={(e) => update('image', e.target.value)}
-        />
-        <p className="mt-1 text-xs text-steel/60">
-          Drop new photos into <code>/public/images/products/</code> in the project, then reference the path here.
-        </p>
-      </div>
+      <ImagesEditor images={form.images} onChange={(images) => update('images', images)} />
 
-      {!form.image && (
+      {form.images.filter(Boolean).length === 0 && (
         <div>
           <label className="text-sm font-bold uppercase tracking-wide text-charcoal">Fallback Icon</label>
           <select className="input-field mt-1" value={form.icon} onChange={(e) => update('icon', e.target.value)}>
@@ -171,6 +186,12 @@ export default function ProductForm({ initialProduct }) {
           </select>
         </div>
       )}
+
+      <OptionsEditor
+        options={form.options}
+        category={form.category}
+        onChange={(options) => update('options', options)}
+      />
 
       <div>
         <label className="text-sm font-bold uppercase tracking-wide text-charcoal">Short Description</label>

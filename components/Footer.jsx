@@ -51,6 +51,7 @@ export default function Footer() {
           <h4 className="font-display uppercase tracking-wide text-safety">Info</h4>
           <ul className="mt-3 space-y-2 text-sm text-bone/80">
             <li><Link href="/shop" className="hover:text-safety">Shop All Products</Link></li>
+            <li><Link href="/size-guide" className="hover:text-safety">SA Size Guide</Link></li>
             <li><Link href="/cart" className="hover:text-safety">Your Cart</Link></li>
           </ul>
         </div>

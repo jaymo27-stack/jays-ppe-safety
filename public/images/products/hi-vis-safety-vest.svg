@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="High visibility safety vest">
+  <defs>
+    <pattern id="stripe" width="40" height="40" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F5B700"/>
+      <rect width="20" height="40" fill="#1A1A18"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="#F2F0E9"/>
+  <rect x="0" y="0" width="600" height="14" fill="url(#stripe)"/>
+  <rect x="0" y="586" width="600" height="14" fill="url(#stripe)"/>
+  <g transform="translate(300,300)">
+    <ellipse cx="0" cy="200" rx="150" ry="16" fill="#1A1A18" opacity="0.12"/>
+    <path d="M -130 -150 L -55 -175 Q 0 -120 55 -175 L 130 -150 L 150 170 L -150 170 Z" fill="#F5B700"/>
+    <path d="M -55 -175 Q 0 -120 55 -175 L 40 -160 Q 0 -105 -40 -160 Z" fill="#D89E00"/>
+    <rect x="-10" y="-130" width="20" height="300" fill="#D89E00" opacity="0.5"/>
+    <g fill="#F2F0E9" stroke="#1A1A18" stroke-width="3">
+      <rect x="-150" y="-10" width="300" height="34"/>
+      <rect x="-150" y="70" width="300" height="34"/>
+      <rect x="-108" y="-150" width="34" height="320"/>
+      <rect x="74" y="-150" width="34" height="320"/>
+    </g>
+  </g>
+</svg>

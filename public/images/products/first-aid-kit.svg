@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Workplace first aid kit">
+  <defs>
+    <pattern id="stripe" width="40" height="40" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F5B700"/>
+      <rect width="20" height="40" fill="#1A1A18"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="#F2F0E9"/>
+  <rect x="0" y="0" width="600" height="14" fill="url(#stripe)"/>
+  <rect x="0" y="586" width="600" height="14" fill="url(#stripe)"/>
+  <g transform="translate(300,300)">
+    <ellipse cx="0" cy="200" rx="170" ry="16" fill="#1A1A18" opacity="0.12"/>
+    <rect x="-55" y="-175" width="110" height="34" rx="14" fill="none" stroke="#1A1A18" stroke-width="16"/>
+    <rect x="-180" y="-145" width="360" height="330" rx="22" fill="#E8491D"/>
+    <rect x="-180" y="-145" width="360" height="52" rx="22" fill="#1A1A18" opacity="0.18"/>
+    <rect x="-180" y="5" width="360" height="26" fill="#1A1A18" opacity="0.25"/>
+    <rect x="-34" y="-10" width="68" height="56" rx="8" fill="#F5B700"/>
+    <rect x="-24" y="66" width="48" height="104" fill="#F2F0E9"/>
+    <rect x="-52" y="94" width="104" height="48" fill="#F2F0E9"/>
+  </g>
+</svg>

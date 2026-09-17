@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Clear lens safety goggles">
+  <defs>
+    <pattern id="stripe" width="40" height="40" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F5B700"/>
+      <rect width="20" height="40" fill="#1A1A18"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="#F2F0E9"/>
+  <rect x="0" y="0" width="600" height="14" fill="url(#stripe)"/>
+  <rect x="0" y="586" width="600" height="14" fill="url(#stripe)"/>
+  <g transform="translate(300,300)">
+    <ellipse cx="0" cy="130" rx="170" ry="16" fill="#1A1A18" opacity="0.12"/>
+    <rect x="-250" y="-40" width="110" height="46" rx="12" fill="#1A1A18"/>
+    <rect x="140" y="-40" width="110" height="46" rx="12" fill="#1A1A18"/>
+    <path d="M -175 -85 L 175 -85 Q 205 -85 205 -50 L 205 25 Q 205 75 155 75 L -155 75 Q -205 75 -205 25 L -205 -50 Q -205 -85 -175 -85 Z" fill="#1A1A18"/>
+    <path d="M -165 -60 L 165 -60 Q 180 -60 180 -42 L 180 20 Q 180 50 150 50 L -150 50 Q -180 50 -180 20 L -180 -42 Q -180 -60 -165 -60 Z" fill="#9AD5E8" opacity="0.85"/>
+    <path d="M -150 -55 L -60 -55 L -140 45 L -175 45 Z" fill="#F2F0E9" opacity="0.55"/>
+    <path d="M -60 -55 L -10 -55 L -90 45 L -140 45 Z" fill="#F2F0E9" opacity="0.3"/>
+    <rect x="-205" y="-95" width="410" height="22" rx="10" fill="#F5B700"/>
+  </g>
+</svg>

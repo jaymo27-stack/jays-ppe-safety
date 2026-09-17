@@ -20,7 +20,11 @@ export default function CartPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: items.map((i) => ({ slug: i.slug, quantity: i.quantity })),
+          items: items.map((i) => ({
+            slug: i.slug,
+            quantity: i.quantity,
+            options: i.options || {},
+          })),
         }),
       });
       const data = await res.json();
@@ -47,7 +51,7 @@ export default function CartPage() {
         <div className="mt-8 grid gap-10 md:grid-cols-3">
           <div className="md:col-span-2 divide-y-2 divide-line border-2 border-line bg-white">
             {items.map((item) => (
-              <div key={item.slug} className="flex items-center gap-4 p-4">
+              <div key={item.key} className="flex items-center gap-4 p-4">
                 <div className="relative h-20 w-20 flex-shrink-0 border border-line bg-bone">
                   {item.image ? (
                     <Image src={item.image} alt={item.name} fill className="object-cover" />
@@ -61,10 +65,22 @@ export default function CartPage() {
                   <Link href={`/product/${item.slug}`} className="font-display text-charcoal hover:text-hazard">
                     {item.name}
                   </Link>
+                  {item.options && Object.keys(item.options).length > 0 && (
+                    <p className="mt-0.5 flex flex-wrap gap-x-3 text-sm text-steel/70">
+                      {Object.entries(item.options).map(([name, value]) => (
+                        <span key={name}>
+                          <span className="font-bold uppercase tracking-wide text-charcoal/70">
+                            {name}:
+                          </span>{' '}
+                          {value}
+                        </span>
+                      ))}
+                    </p>
+                  )}
                   <p className="text-sm text-steel/70">{formatPrice(item.price)} each</p>
                   <div className="mt-2 flex items-center gap-2">
                     <button
-                      onClick={() => updateQuantity(item.slug, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.key, item.quantity - 1)}
                       className="border-2 border-line px-2 font-bold hover:bg-bone"
                       aria-label="Decrease quantity"
                     >
@@ -72,14 +88,14 @@ export default function CartPage() {
                     </button>
                     <span className="w-8 text-center">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.slug, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.key, item.quantity + 1)}
                       className="border-2 border-line px-2 font-bold hover:bg-bone"
                       aria-label="Increase quantity"
                     >
                       +
                     </button>
                     <button
-                      onClick={() => removeItem(item.slug)}
+                      onClick={() => removeItem(item.key)}
                       className="ml-4 text-sm font-bold uppercase text-hazard hover:underline"
                     >
                       Remove

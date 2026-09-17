@@ -106,7 +106,31 @@ use:
 - **Edit or hide a product**: click *Edit* on any row, or use the Active toggle to hide it from
   the store without deleting it.
 - **View orders**: Orders tab shows every completed payment, with items, totals and shipping
-  address.
+  address. The size and colour the customer picked appears next to each item name.
+- **Change sizes or colours**: every product's edit screen has a *Sizes & Colours* panel. Values
+  are typed as a comma-separated list, so removing size 13 from a boot is a five-second edit.
+  *Use SA defaults for this category* refills the standard curve if you ever need to reset it.
+
+## Sizing (South African standards)
+
+Customers must choose a size (and colour, where it applies) before an item can go into the cart.
+The choice follows the product all the way through to the Stripe receipt and the saved order.
+
+| Product type | Sizes offered | Colours |
+|---|---|---|
+| Safety footwear | SA/UK 5–13 | Black, Brown |
+| Gum boots | SA/UK 4–13 | as per product |
+| Conti worksuits & overalls | SA conti curve 32–54 (even numbers) | as per product |
+| Jackets & vests | S – 3XL | as per product |
+
+South African shoe sizes are identical to UK sizes. Conti suits are sized by **jacket (chest)
+size** on the standard 32–54 curve — the rule of thumb is *jacket size = trouser waist + 4 inches*,
+so a 32" waist takes a size 36 suit.
+
+A public size guide with full SA → UK → EU → US footwear conversion and the conti suit
+chest/waist chart lives at **`/size-guide`**, linked from the footer and from every product that
+has sizes. To change the charts themselves, edit `lib/sa-sizes.js` — that one file is the single
+source of truth for every size list in the store.
 
 ## Project structure
 
@@ -116,8 +140,10 @@ app/                    Pages & API routes (Next.js App Router)
   api/                  API routes (checkout, webhook, admin CRUD)
   product/[slug]/       Product detail pages
   shop/[category]/      Category listing pages
+  size-guide/           SA sizing charts (footwear + conti suits)
 components/             Reusable React components
 lib/                    Database, auth, Stripe, formatting helpers
+  sa-sizes.js           SA size standards — edit size curves & colours here
 data/                   Seed product data, categories, and the SQLite database file
 public/images/          Product photos and logo
 ```
