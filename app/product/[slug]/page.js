@@ -7,6 +7,10 @@ import ProductGallery from '../../../components/ProductGallery';
 import ProductCard from '../../../components/ProductCard';
 import categories from '../../../data/categories';
 
+// Always read products fresh from the database, so price/stock/size changes made
+// in /admin show up immediately instead of waiting for the next deploy.
+export const dynamic = 'force-dynamic';
+
 export function generateStaticParams() {
   const products = getAllProducts();
   return products.map((p) => ({ slug: p.slug }));

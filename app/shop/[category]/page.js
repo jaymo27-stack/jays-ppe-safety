@@ -8,6 +8,10 @@ export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
 }
 
+// Always read products fresh from the database, so price/stock changes made in
+// /admin show up immediately instead of waiting for the next deploy.
+export const dynamic = 'force-dynamic';
+
 export function generateMetadata({ params }) {
   const cat = categories.find((c) => c.slug === params.category);
   return { title: cat ? `${cat.name} | Jay's PPE & Safety` : "Shop | Jay's PPE & Safety" };

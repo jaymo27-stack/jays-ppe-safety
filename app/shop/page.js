@@ -6,6 +6,10 @@ import { getAllProducts } from '../../lib/products';
 
 export const metadata = { title: "Shop All | Jay's PPE & Safety" };
 
+// Always read products fresh from the database, so price/stock changes made in
+// /admin show up immediately instead of waiting for the next deploy.
+export const dynamic = 'force-dynamic';
+
 export default function ShopPage() {
   const products = getAllProducts();
 

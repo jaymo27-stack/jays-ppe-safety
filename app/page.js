@@ -5,6 +5,10 @@ import CategoryIcon from '../components/CategoryIcon';
 import categories from '../data/categories';
 import { getAllProducts } from '../lib/products';
 
+// Always read products fresh from the database, so price/stock changes made in
+// /admin show up immediately instead of waiting for the next deploy.
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   const products = getAllProducts();
   const featured = products.slice(0, 8);
