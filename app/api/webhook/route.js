@@ -20,7 +20,7 @@ export async function POST(request) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
-    const existing = getOrderBySessionId(session.id);
+    const existing = await getOrderBySessionId(session.id);
 
     if (!existing) {
       let lineItems = [];
@@ -35,7 +35,7 @@ export async function POST(request) {
         console.error('Could not fetch line items:', e.message);
       }
 
-      createOrder({
+      await createOrder({
         stripe_session_id: session.id,
         customer_name: session.customer_details?.name || '',
         customer_email: session.customer_details?.email || '',
@@ -46,7 +46,7 @@ export async function POST(request) {
         status: 'paid',
       });
     } else {
-      updateOrderStatusBySessionId(session.id, 'paid');
+      await updateOrderStatusBySessionId(session.id, 'paid');
     }
   }
 

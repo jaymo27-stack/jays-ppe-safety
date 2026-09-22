@@ -11,22 +11,17 @@ import categories from '../../../data/categories';
 // in /admin show up immediately instead of waiting for the next deploy.
 export const dynamic = 'force-dynamic';
 
-export function generateStaticParams() {
-  const products = getAllProducts();
-  return products.map((p) => ({ slug: p.slug }));
-}
-
-export function generateMetadata({ params }) {
-  const product = getProductBySlug(params.slug);
+export async function generateMetadata({ params }) {
+  const product = await getProductBySlug(params.slug);
   return { title: product ? `${product.name} | Jay's PPE & Safety` : "Product | Jay's PPE & Safety" };
 }
 
-export default function ProductPage({ params }) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductPage({ params }) {
+  const product = await getProductBySlug(params.slug);
   if (!product || !product.active) return notFound();
 
   const cat = categories.find((c) => c.slug === product.category);
-  const related = getAllProducts()
+  const related = (await getAllProducts())
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 

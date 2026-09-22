@@ -17,11 +17,11 @@ export function generateMetadata({ params }) {
   return { title: cat ? `${cat.name} | Jay's PPE & Safety` : "Shop | Jay's PPE & Safety" };
 }
 
-export default function CategoryPage({ params }) {
+export default async function CategoryPage({ params }) {
   const cat = categories.find((c) => c.slug === params.category);
   if (!cat) return notFound();
 
-  const products = getProductsByCategory(cat.slug);
+  const products = await getProductsByCategory(cat.slug);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">

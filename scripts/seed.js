@@ -1,8 +1,16 @@
 // The database auto-seeds itself the first time the app runs, so you normally
-// don't need this. Use it if you've deleted data/store.db and want to recreate
-// it with the default product catalog without starting the whole app.
+// don't need this. Use it to initialise the Postgres catalog without starting
+// the whole app.
 
-const { db } = require('../lib/db');
+const { db, ensureDatabase } = require('../lib/db');
 
-const count = db.prepare('SELECT COUNT(*) AS c FROM products').get().c;
-console.log(`✓ Database ready at data/store.db — ${count} products loaded.`);
+ensureDatabase()
+	.then(async () => {
+		const { rows } = await db.query('SELECT COUNT(*)::int AS count FROM products');
+		console.log(`Database ready — ${rows[0].count} products loaded.`);
+		await db.end();
+	})
+	.catch((error) => {
+		console.error('Could not initialise database:', error.message);
+		process.exitCode = 1;
+	});

@@ -11,8 +11,9 @@ products and viewing orders.
 - **Checkout** — Stripe Checkout (hosted payment page). Card details never touch this server.
 - **Admin dashboard** (`/admin`) — add/edit/delete products, change prices and stock, hide items
   from the store, and view paid orders.
-- **Database** — a local SQLite file (`data/store.db`), created automatically the first time you
-  run the app, pre-loaded with the 21 products from your flyers (placeholder prices).
+- **Database** — a Supabase Postgres database configured with the `DATABASE_URL` environment
+  variable, with tables and the default catalog created automatically the first time you run the
+  app. It is pre-loaded with the 21 products from your flyers (placeholder prices).
 
 ## 1. Install
 
@@ -42,6 +43,7 @@ Open `.env.local` and set:
 | `ADMIN_USERNAME` / `ADMIN_PASSWORD` | Your login for `/admin`. **Change these from the defaults.** |
 | `JWT_SECRET` | Any long random string — used to sign admin login sessions. Change it to something unique. |
 | `NEXT_PUBLIC_SITE_URL` | Your site's URL. `http://localhost:3000` while developing; your real domain once deployed. |
+| `DATABASE_URL` | Supabase Postgres connection string. |
 
 ## 3. Run it locally
 

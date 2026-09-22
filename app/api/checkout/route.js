@@ -15,7 +15,7 @@ export async function POST(request) {
     // Re-look-up every product server-side so prices can never be tampered with client-side.
     const line_items = [];
     for (const item of cartItems) {
-      const product = getProductBySlug(item.slug);
+      const product = await getProductBySlug(item.slug);
       if (!product || !product.active) {
         return NextResponse.json({ error: `Product "${item.slug}" is no longer available.` }, { status: 400 });
       }

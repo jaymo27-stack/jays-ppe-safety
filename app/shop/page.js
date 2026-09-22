@@ -10,8 +10,8 @@ export const metadata = { title: "Shop All | Jay's PPE & Safety" };
 // /admin show up immediately instead of waiting for the next deploy.
 export const dynamic = 'force-dynamic';
 
-export default function ShopPage() {
-  const products = getAllProducts();
+export default async function ShopPage() {
+  const products = await getAllProducts();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">

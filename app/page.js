@@ -9,8 +9,8 @@ import { getAllProducts } from '../lib/products';
 // /admin show up immediately instead of waiting for the next deploy.
 export const dynamic = 'force-dynamic';
 
-export default function HomePage() {
-  const products = getAllProducts();
+export default async function HomePage() {
+  const products = await getAllProducts();
   const featured = products.slice(0, 8);
 
   return (

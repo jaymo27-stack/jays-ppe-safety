@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getProductById, updateProduct, deleteProduct } from '../../../../../lib/products';
 
 export async function GET(request, { params }) {
-  const product = getProductById(params.id);
+  const product = await getProductById(params.id);
   if (!product) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json({ product });
 }
@@ -10,11 +10,11 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
-    const product = updateProduct(params.id, data);
+    const product = await updateProduct(params.id, data);
     if (!product) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     return NextResponse.json({ product });
   } catch (err) {
-    const message = err.message?.includes('UNIQUE')
+    const message = err.code === '23505' || err.message?.includes('UNIQUE')
       ? 'A product with that slug already exists.'
       : err.message || 'Could not update product.';
     return NextResponse.json({ error: message }, { status: 400 });
@@ -22,6 +22,6 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  deleteProduct(params.id);
+  await deleteProduct(params.id);
   return NextResponse.json({ ok: true });
 }

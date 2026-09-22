@@ -15,8 +15,8 @@ async function getSessionDetails(sessionId) {
 
     // Fallback: record the order here too, in case the webhook hasn't reached this server yet
     // (e.g. running locally without the Stripe CLI forwarding events).
-    if (session.payment_status === 'paid' && !getOrderBySessionId(session.id)) {
-      createOrder({
+    if (session.payment_status === 'paid' && !(await getOrderBySessionId(session.id))) {
+      await createOrder({
         stripe_session_id: session.id,
         customer_name: session.customer_details?.name || '',
         customer_email: session.customer_details?.email || '',

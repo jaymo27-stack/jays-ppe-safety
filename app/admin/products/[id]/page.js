@@ -4,8 +4,8 @@ import { getProductById } from '../../../../lib/products';
 
 export const dynamic = 'force-dynamic';
 
-export default function EditProductPage({ params }) {
-  const product = getProductById(params.id);
+export default async function EditProductPage({ params }) {
+  const product = await getProductById(params.id);
   if (!product) return notFound();
 
   return (
